@@ -25,8 +25,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/cesanta/docker_auth/auth_server/authn"
-	"github.com/cesanta/docker_auth/auth_server/authz"
+	"github.com/jhellan/docker_auth/auth_server/authn"
+	"github.com/jhellan/docker_auth/auth_server/authz"
 	"github.com/docker/libtrust"
 	yaml "gopkg.in/yaml.v2"
 )

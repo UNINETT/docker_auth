@@ -6,7 +6,7 @@ import (
 	"net"
 	"strings"
 
-	"github.com/cesanta/docker_auth/auth_server/authn"
+	"github.com/jhellan/docker_auth/auth_server/authn"
 )
 
 // Authorizer interface performs authorization of the request.

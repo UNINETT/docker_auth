@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/cesanta/docker_auth/auth_server/authn"
+	"github.com/jhellan/docker_auth/auth_server/authn"
 	"github.com/golang/glog"
 )
 

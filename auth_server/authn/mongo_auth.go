@@ -22,7 +22,7 @@ import (
 	"io"
 	"time"
 
-	"github.com/cesanta/docker_auth/auth_server/mgo_session"
+	"github.com/jhellan/docker_auth/auth_server/mgo_session"
 	"github.com/golang/glog"
 	"golang.org/x/crypto/bcrypt"
 	"gopkg.in/mgo.v2"
