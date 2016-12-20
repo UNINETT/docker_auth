@@ -66,6 +66,27 @@ google_auth:
   # How long to wait when talking to Google servers. Optional.
   http_timeout: 10
 
+dataporten_auth:
+# ==! NB: DO NOT ENTER YOUR GITHUB PASSWORD AT "docker login". IT WILL NOT WORK.
+# Instead, Auth server maintains a database of Dataporten authentication tokens.
+# Go to the server's port as HTTPS with your browser and follow the "Login with Dataporten account" link.
+# Once signed in, you will get a throw-away password which you can use for Docker login.
+  # client_id and client_secret for API access. Required.
+  # You can register a new application here: https://dashboard.dataporten.no
+  # NB: Make sure JavaScript origins are configured correctly.
+  client_id: "nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn"
+  # Either client_secret or client_secret_file is required. Use client_secret_file if you don't
+  # want to have sensitive information checked in.
+  client_secret: "nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn"
+  # client_secret_file: "/path/to/client_secret.txt"
+  redirect_uri: "http://..."
+  # Where to store server tokens. Required.
+  token_db: "/somewhere/to/put/dataporten_tokens.ldb"
+  # How long to wait when talking to Dataporten servers. Optional.
+  http_timeout: "10s"
+  # How long to wait before revalidating the Dataporten token. Optional.
+  revalidate_after: "1h"
+
 # GitHub authentication.
 # ==! NB: DO NOT ENTER YOUR GITHUB PASSWORD AT "docker login". IT WILL NOT WORK.
 # Instead, Auth server maintains a database of GitHub authentication tokens.
