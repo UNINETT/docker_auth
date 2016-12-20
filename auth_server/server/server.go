@@ -37,6 +37,7 @@ type AuthServer struct {
 	config         *Config
 	authenticators []authn.Authenticator
 	authorizers    []authz.Authorizer
+	da             *authn.DataportenAuth
 	ga             *authn.GoogleAuth
 	gha            *authn.GitHubAuth
 }
@@ -69,6 +70,14 @@ func NewAuthServer(c *Config) (*AuthServer, error) {
 	}
 	if c.ExtAuth != nil {
 		as.authenticators = append(as.authenticators, authn.NewExtAuth(c.ExtAuth))
+	}
+	if c.DataportenAuth != nil {
+		da, err := authn.NewDataportenAuth(c.DataportenAuth)
+		if err != nil {
+			return nil, err
+		}
+		as.authenticators = append(as.authenticators, da)
+		as.da = da
 	}
 	if c.GoogleAuth != nil {
 		ga, err := authn.NewGoogleAuth(c.GoogleAuth)
@@ -335,6 +344,8 @@ func (as *AuthServer) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 		as.doIndex(rw, req)
 	case req.URL.Path == "/auth":
 		as.doAuth(rw, req)
+	case req.URL.Path == "/dataporten_auth" && as.da != nil:
+		as.da.DoDataportenAuth(rw, req)
 	case req.URL.Path == "/google_auth" && as.ga != nil:
 		as.ga.DoGoogleAuth(rw, req)
 	case req.URL.Path == "/github_auth" && as.gha != nil:
@@ -349,6 +360,9 @@ func (as *AuthServer) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 func (as *AuthServer) doIndex(rw http.ResponseWriter, req *http.Request) {
 	rw.Header().Set("Content-Type", "text-html; charset=utf-8")
 	fmt.Fprintf(rw, "<h1>%s</h1>\n", as.config.Token.Issuer)
+	if as.da != nil {
+		fmt.Fprint(rw, `<p><a href="/dataporten_auth">Login with Dataporten account</a></p>`)
+	}
 	if as.ga != nil {
 		fmt.Fprint(rw, `<p><a href="/google_auth">Login with Google account</a></p>`)
 	}
