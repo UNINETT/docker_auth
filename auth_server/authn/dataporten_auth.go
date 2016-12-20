@@ -182,9 +182,6 @@ func (da *DataportenAuth) validateAccessToken(token string) (user string, err er
 		err = fmt.Errorf("could not unmarshal token user info %q: %s", string(body), err)
 		return
 	}
-	glog.V(2).Infof("Token user info: %+v", strings.Replace(string(body), "\n", " ", -1))
-	glog.V(2).Infof("Token user info: %+v", ti)
-
 	err = da.checkOrganization(token, ti.User.Email)
 	if err != nil {
 		err = fmt.Errorf("could not validate organization: %s", err)
