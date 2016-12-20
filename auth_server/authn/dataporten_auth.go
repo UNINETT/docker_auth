@@ -192,7 +192,27 @@ func (da *DataportenAuth) validateAccessToken(token string) (user string, err er
 }
 
 func (da *DataportenAuth) checkOrganization(token, user string) (err error) {
-	return nil
+	if da.config.Organization == "" {
+		return nil
+	}
+	url := fmt.Sprintf("https://groups-api.dataporten.no/groups/me/groups/%s", da.config.Organization)
+	req, err := http.NewRequest("GET", url, nil)
+	if err != nil {
+		err = fmt.Errorf("could not create request to get organization membership: %s", err)
+		return
+	}
+	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token))
+
+	resp, err := da.client.Do(req)
+	if err != nil {
+		return
+	}
+
+	if resp.StatusCode == http.StatusOK {
+		return nil
+	} else {
+		return fmt.Errorf("%s is not known to be a member of organization %s", user, da.config.Organization)
+	}
 }
 
 func (da *DataportenAuth) validateServerToken(user string) (*TokenDBValue, error) {

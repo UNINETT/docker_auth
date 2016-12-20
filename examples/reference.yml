@@ -71,6 +71,7 @@ dataporten_auth:
 # Instead, Auth server maintains a database of Dataporten authentication tokens.
 # Go to the server's port as HTTPS with your browser and follow the "Login with Dataporten account" link.
 # Once signed in, you will get a throw-away password which you can use for Docker login.
+  organization: "fc:org:uninett.no"   # Optional. If set, only logins from this organization are accepted.
   # client_id and client_secret for API access. Required.
   # You can register a new application here: https://dashboard.dataporten.no
   # NB: Make sure JavaScript origins are configured correctly.
