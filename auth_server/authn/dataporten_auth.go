@@ -165,7 +165,7 @@ func (da *DataportenAuth) validateAccessToken(token string) (user string, err er
 		err = fmt.Errorf("could not create request to get information for token %s: %s", token, err)
 		return
 	}
-	req.Header.Add("Authorization", fmt.Sprintf("bearer %s", token))
+	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token))
 	req.Header.Add("Accept", "application/json")
 
 	resp, err := da.client.Do(req)
