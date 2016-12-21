@@ -32,7 +32,7 @@ import (
 )
 
 type DataportenAuthConfig struct {
-	Organization     string        `yaml:"organization,omitempty"`
+	Group            string        `yaml:"group,omitempty"`
 	ClientId         string        `yaml:"client_id,omitempty"`
 	ClientSecret     string        `yaml:"client_secret,omitempty"`
 	ClientSecretFile string        `yaml:"client_secret_file,omitempty"`
@@ -51,7 +51,7 @@ type DataportenAuthRequest struct {
 type DataportenTokenUser struct {
 	User struct {
 		Userid string `json:"userid,omitempty"`
-		Email string `json:"email,omitempty"`
+		Email  string `json:"email,omitempty"`
 	} `json:"user"`
 }
 
@@ -182,23 +182,23 @@ func (da *DataportenAuth) validateAccessToken(token string) (user string, err er
 		err = fmt.Errorf("could not unmarshal token user info %q: %s", string(body), err)
 		return
 	}
-	err = da.checkOrganization(token, ti.User.Email)
+	err = da.checkGroup(token, ti.User.Email)
 	if err != nil {
-		err = fmt.Errorf("could not validate organization: %s", err)
+		err = fmt.Errorf("could not validate group: %s", err)
 		return
 	}
 
 	return ti.User.Email, nil
 }
 
-func (da *DataportenAuth) checkOrganization(token, user string) (err error) {
-	if da.config.Organization == "" {
+func (da *DataportenAuth) checkGroup(token, user string) (err error) {
+	if da.config.Group == "" {
 		return nil
 	}
-	url := fmt.Sprintf("https://groups-api.dataporten.no/groups/me/groups/%s", da.config.Organization)
+	url := fmt.Sprintf("https://groups-api.dataporten.no/groups/me/groups/%s", da.config.Group)
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
-		err = fmt.Errorf("could not create request to get organization membership: %s", err)
+		err = fmt.Errorf("could not create request to get group membership: %s", err)
 		return
 	}
 	req.Header.Add("Authorization", fmt.Sprintf("Bearer %s", token))
@@ -211,7 +211,7 @@ func (da *DataportenAuth) checkOrganization(token, user string) (err error) {
 	if resp.StatusCode == http.StatusOK {
 		return nil
 	} else {
-		return fmt.Errorf("%s is not known to be a member of organization %s", user, da.config.Organization)
+		return fmt.Errorf("%s is not known to be a member of group %s", user, da.config.Group)
 	}
 }
 
