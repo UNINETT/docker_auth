@@ -156,7 +156,7 @@ func (da *DataportenAuth) doDataportenAuthCreateToken(rw http.ResponseWriter, co
 		return
 	}
 
-	fmt.Fprintf(rw, `Server logged in; now run "docker login", use %s as login and %s as password.`, user, dp)
+	fmt.Fprintf(rw, `Server logged in; now run "docker login <registry>", use %s as login and %s as password.`, user, dp)
 }
 
 func (da *DataportenAuth) validateAccessToken(token string) (user string, err error) {
