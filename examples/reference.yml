@@ -80,7 +80,7 @@ dataporten_auth:
   # want to have sensitive information checked in.
   client_secret: "nnnnnnnn-nnnn-nnnn-nnnn-nnnnnnnnnnnn"
   # client_secret_file: "/path/to/client_secret.txt"
-  redirect_uri: "http://..."
+  redirect_uri: "https://..."
   # Where to store server tokens. Required.
   token_db: "/somewhere/to/put/dataporten_tokens.ldb"
   # How long to wait when talking to Dataporten servers. Optional.
