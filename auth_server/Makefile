@@ -1,5 +1,5 @@
 MAKEFLAGS += --warn-undefined-variables
-IMAGE ?= registry.uninett.no/docker-dev/docker_auth
+IMAGE ?= jhellan/docker_auth
 COMPRESS_BINARY ?= false
 CA_BUNDLE = /etc/ssl/certs/ca-certificates.crt
 VERSION = $(shell cat version.txt)
