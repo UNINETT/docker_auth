@@ -3,7 +3,7 @@ package authz
 import (
 	"errors"
 	"fmt"
-	"github.com/jhellan/docker_auth/auth_server/mgo_session"
+	"github.com/UNINETT/docker_auth/auth_server/mgo_session"
 	"github.com/golang/glog"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"

@@ -27,8 +27,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/jhellan/docker_auth/auth_server/authn"
-	"github.com/jhellan/docker_auth/auth_server/authz"
+	"github.com/UNINETT/docker_auth/auth_server/authn"
+	"github.com/UNINETT/docker_auth/auth_server/authz"
 	"github.com/docker/distribution/registry/auth/token"
 	"github.com/golang/glog"
 )
